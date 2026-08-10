@@ -32,7 +32,7 @@ then
        else
            echo "Recovery : Failed"  >>  "$REPORT"
            echo " Application : Still Down" >>  "$REPORT"
-       fi
+    fi
         
     elif echo "Checking port $PORT..."
 
