@@ -1,6 +1,8 @@
 #!/bin/bash
 
 REPORT="debug-report.txt"
+PORT=8080
+Expected_process= " python"
 echo "Checking software..."
 echo "-------------------------------------" > "$REPORT"
 echo "APPLICATION DEBUGGING REPORT" >>  "$REPORT"
@@ -32,9 +34,29 @@ then
            echo " Application : Still Down" >>  "$REPORT"
        fi
         
-    elif grep -q "Port" app.log
+    elif echo "Checking port $PORT..."
+
+    if ss -lnt| grep -q ":$PORT"
     then
-       echo "Problem type : Port" >>  "$REPORT"
+
+	    echo "Port $PORT is listening" >> "$REPORT"
+	    PID=$(sudo ss -lntp | grep ":$PORT" | grep -o 'pid=[0-9]*' | cut -d= -f2)
+	    PROCESS=$(ps -p "$PID" -o comm= )
+	    echo "Port $PORT is being used by another PID : $PID"
+	    echo "Process using port $PORT : $PROCESS"
+	    if ["$PROCESS" = "$Expected_process" ]; then
+		    echo " Correct Application is using port $PORT"
+	 
+
+            else
+	            echo "Problem type : Port"
+                    echo "Problem type : Port" >>  "$REPORT"
+	            echo " Port $PORT is not listening" >> "$REPORT"
+	            echo "DEBUG : Nothing is listening on port $PORT" >> "$REPORT"
+		    echo " Port $PORT is occupied by unexpected process : $PROCESS" >> "$REPORT"
+		    echo " DEBUG: Possible port conflict detected"
+    fi
+
     elif grep -q "Permission" app.log
     then
        echo "Problem type : Permission" >>  "$REPORT"
