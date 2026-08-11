@@ -39,22 +39,22 @@ then
     if ss -lnt| grep -q ":$PORT"
     then
 
-	    echo "Port $PORT is listening" >> "$REPORT"
+	    echo "Port $PORT is listening" >> 
 	    PID=$(sudo ss -lntp | grep ":$PORT" | grep -o 'pid=[0-9]*' | cut -d= -f2)
 	    PROCESS=$(ps -p "$PID" -o comm= )
-	    echo "Port $PORT is being used by another PID : $PID"
-	    echo "Process using port $PORT : $PROCESS"
+	    echo "Port $PORT is being used by another PID : $PID" 
+	    echo "Process using port $PORT : $PROCESS" 
 	    if ["$PROCESS" = "$Expected_process" ]; then
-		    echo " Correct Application is using port $PORT"
+		    echo " Correct Application is using port $PORT" 
 	 
 
             else
 	            echo "Problem type : Port"
-                    echo "Problem type : Port" >>  "$REPORT"
-	            echo " Port $PORT is not listening" >> "$REPORT"
-	            echo "DEBUG : Nothing is listening on port $PORT" >> "$REPORT"
-		    echo " Port $PORT is occupied by unexpected process : $PROCESS" >> "$REPORT"
-		    echo " DEBUG: Possible port conflict detected"
+                    echo "Problem type : Port" >>  
+	            echo " Port $PORT is not listening" >> 
+	            echo "DEBUG : Nothing is listening on port $PORT" 
+		    echo " Port $PORT is occupied by unexpected process : $PROCESS" 
+		    echo " DEBUG: Possible port conflict detected" 
     fi
 
     elif grep -q "Permission" app.log
