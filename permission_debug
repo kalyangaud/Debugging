@@ -1,0 +1,29 @@
+#!/bin/bash
+
+FILE="$1"
+
+if [ -z "$FILE" ]; then
+    echo "Usage: $0 <file/path>"
+    exit 1
+fi
+
+echo "=== Permission Debug ==="
+
+echo -e "\n[User]"
+id
+
+echo -e "\n[File Permissions]"
+ls -ld "$FILE"
+
+echo -e "\n[Path Permissions]"
+namei -l "$FILE" 2>/dev/null
+
+echo -e "\n[Read/Write/Execute]"
+[ -r "$FILE" ] && echo "Read: OK" || echo "Read: DENIED"
+[ -w "$FILE" ] && echo "Write: OK" || echo "Write: DENIED"
+[ -x "$FILE" ] && echo "Execute: OK" || echo "Execute: DENIED"
+
+echo -e "\n[ACL]"
+getfacl "$FILE" 2>/dev/null || echo "ACL tools not available"
+
+echo -e "\n=== Done ==="
