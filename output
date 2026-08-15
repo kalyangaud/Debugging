@@ -1,0 +1,13 @@
+##Output of debug
+
+
+--------WEB APPLICATION DEBUG---------
+
+Checking logs....
+logfile_error.sh: line 13: [: missing `]'
+LOG file not found
+
+Checking memories usage.......
+               total        used        free      shared  buff/cache   available
+Mem:           7.6Gi       492Mi       7.1Gi       3.5Mi       158Mi       7.1Gi
+Swap:          2.0Gi          0B       2.0Gi
