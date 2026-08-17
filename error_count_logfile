@@ -1,0 +1,10 @@
+##Script to count the no of errors in web log server
+
+LOG=/var/log/nginx/access.log
+ERRORS=$(grep -c 500 $LOG)
+if [ $ERROR == 0 ]; then
+     echo "NO errors found"
+else
+     echo "$ERRORS errros found."
+fi 
+
