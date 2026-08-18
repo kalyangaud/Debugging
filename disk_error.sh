@@ -13,6 +13,9 @@ check_disk(){
 		else
 			echo "Disk usage is too high"
 			echo "DEBUG: The disk may be full"
+			echo "________________________"
+			echo "Please free some disk memory "
+			free -h
 	fi
 }
 
