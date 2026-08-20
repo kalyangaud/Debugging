@@ -26,5 +26,7 @@ handle_error(){
 	echo "DEBUG: Exit code : $?"
 	echo "DEBUG: Disk debugging stopped"
 }
+check_disk
 trap 'handle_error' ERR
+echo "Disk problem succesfully debugged and handled"
 	
