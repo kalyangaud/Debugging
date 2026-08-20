@@ -17,5 +17,14 @@ check_disk(){
 			echo "Please free some disk memory "
 			free -h
 	fi
+
 }
 
+handle_error(){
+	echo "ERROR: A command Failed"
+	echo "DEBUG:Command : $BASH_COMMAND"
+	echo "DEBUG: Exit code : $?"
+	echo "DEBUG: Disk debugging stopped"
+}
+trap 'handle_error' ERR
+	
