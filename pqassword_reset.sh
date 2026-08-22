@@ -2,6 +2,8 @@
 # reset_password.sh - Reset a local Linux user's password
 
 set -euo pipefail
+MIN_PASSWORD_LENGTH=8
+
 if [[ $EUID -ne 0 ]]; then
     echo "This script must be run as root (use sudo)." >&2
     exit 1
@@ -17,6 +19,23 @@ fi
 while true; do
     read -rsp "Enter new password: " password1
     echo
+
+    check_password_strength() {
+    local pass="$1"
+    if [[ ${#pass} -lt $MIN_PASSWORD_LENGTH ]]; then
+        echo "Password must be at least $MIN_PASSWORD_LENGTH characters long."
+        return 1
+    fi
+    if ! [[ "$pass" =~ [A-Z] ]]; then
+        echo "Password must contain at least one uppercase letter."
+        return 1
+    fi
+    if ! [[ "$pass" =~ [0-9] ]]; then
+        echo "Password must contain at least one digit."
+        return 1
+    fi
+    return 0
+}
     read -rsp "Confirm new password: " password2
     echo
 
