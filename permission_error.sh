@@ -2,8 +2,8 @@
 
 FILE="/etc/test.conf"
 echo "<<<<<<<PERMISSION DEBUGGER>>>>>>"
-
 echo "Checking: $FILE"
+user_name = Kalyan
 echo
 if [ ! -e "$FILE" ]; then
     echo "✗ ERROR: File does not exist."
@@ -12,8 +12,12 @@ fi
 echo "File information:"
 ls -l "$FILE"
 echo
-echo "Current user: $(whoami)"
-echo "User ID: $EUID"
+
+if [ echo "Current user: $(whoami) || $user_name" ]
+     if [echo "User ID: $EUID"];then
+	     echo "Permission Denied ! You are not owner"
+     fi
+fi
 echo
 if [ -r "$FILE" ]; then
     echo "✓ READ permission: OK"
